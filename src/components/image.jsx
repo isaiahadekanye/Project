@@ -6,12 +6,24 @@ class Image extends Component {
   constructor() {
     super();
     this.state = {
-      links: "links1"
+      links: ""
     };
     this.changeState = this.changeState.bind(this);
   }
+  componentDidMount() {
+    this.setState({ links: image1 });
+  }
+
+  changeState() {
+    const { links: temp } = this.state;
+    let links = temp === image1 ? image2 : image1;
+    this.setState({
+      links
+    });
+  }
 
   render() {
+    const { links } = this.state;
     return (
       <React.Fragment>
         <h2 className="text-center text-success">
@@ -20,34 +32,11 @@ class Image extends Component {
         <img
           alt="images"
           className="rounded mx-auto d-block"
-          src={this.formatter()}
+          src={links}
           onClick={this.changeState}
         />
       </React.Fragment>
     );
-  }
-
-  changeState() {
-    if (this.state.links === "links1") {
-      this.setState({
-        links: "links2"
-      });
-    } else {
-      this.setState({
-        links: "links1"
-      });
-    }
-  }
-
-  formatter() {
-    const linkImage1 = image1;
-    const linkImage2 = image2;
-
-    if (this.state.links === "links1") {
-      return linkImage1;
-    } else {
-      return linkImage2;
-    }
   }
 }
 
